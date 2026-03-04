@@ -195,6 +195,102 @@ const FAQSection = () => {
   );
 };
 
+const CurriculumSection = () => {
+  const modules = [
+    {
+      title: "Module 01: The Zero-Cost Infrastructure",
+      lessons: [
+        "Deploying Next.js on Vercel for free edge computing",
+        "Setting up serverless PostgreSQL with Supabase",
+        "Configuring custom domains and SSL at zero cost"
+      ]
+    },
+    {
+      title: "Module 02: Stealth Scraping with Playwright",
+      lessons: [
+        "Setting up Playwright stealth mode to mimic human behavior",
+        "Bypassing Cloudflare, DataDome, and advanced bot protections",
+        "Extracting B2B SaaS Lead Gen data from LinkedIn & Apollo without API keys"
+      ]
+    },
+    {
+      title: "Module 03: Autonomous AI Agents",
+      lessons: [
+        "Integrating Gemini-3.1-Pro via API for hyper-personalized outreach",
+        "Building multi-agent workflows to qualify leads autonomously",
+        "Structuring prompts for high-converting cold email copy"
+      ]
+    },
+    {
+      title: "Module 04: The Revenue Engine",
+      lessons: [
+        "Routing Stripe webhooks to automate SaaS subscription provisioning",
+        "Using Resend and Amazon SES for massive-scale zero-cost cold email",
+        "Building client dashboards with zero additional subscriptions"
+      ]
+    }
+  ];
+
+  return (
+    <section className="py-32 w-full max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">The Technical Syllabus</h2>
+        <p className="text-xl text-neutral-400">Exactly what you will build across 20 dense, fluff-free pages.</p>
+      </motion.div>
+      <div className="space-y-8">
+        {modules.map((mod, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ delay: i * 0.1 }}
+            className="bg-[#0a0a0c]/80 border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden group hover:border-purple-500/30 transition-colors duration-500"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/5 blur-[80px] rounded-full group-hover:bg-purple-500/10 transition-colors pointer-events-none"></div>
+            <h3 className="text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4 flex items-center gap-3">
+              <span className="text-purple-400 font-mono text-lg">{mod.title.split(':')[0]}</span>
+              <span>{mod.title.split(':')[1]}</span>
+            </h3>
+            <ul className="space-y-4">
+              {mod.lessons.map((lesson, j) => (
+                <li key={j} className="flex items-start gap-4 text-neutral-300 text-lg leading-relaxed">
+                  <div className="mt-1.5 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] shrink-0"></div>
+                  {lesson}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+const SEOArticleSection = () => {
+  return (
+    <section className="py-24 w-full max-w-4xl mx-auto px-4 sm:px-6 relative z-10 border-t border-white/5">
+      <article className="prose prose-invert prose-lg md:prose-xl max-w-none">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Why Traditional Lead Gen is Dead</h2>
+        <p className="text-neutral-400 leading-relaxed mb-6">
+          The landscape of <strong>B2B SaaS Lead Gen</strong> has fundamentally shifted. Paying exorbitant monthly fees for bloated CRM systems, manual data entry, and generic outreach sequences is no longer viable. In 2026, the competitive advantage belongs entirely to those who leverage <strong>Automation</strong> and intelligent workflows.
+        </p>
+        <p className="text-neutral-400 leading-relaxed mb-6">
+          We are witnessing the rise of autonomous <strong>AI Agents</strong> capable of executing complex pipeline tasks—from stealth data scraping to hyper-personalized cold email orchestration—at zero marginal cost. By deploying open-source infrastructure and headless browsers, modern agencies are bypassing rate limits and building self-sustaining revenue engines. 
+        </p>
+        <p className="text-neutral-400 leading-relaxed">
+          If you are still relying on traditional methods, you are competing against automated systems that never sleep, never require a salary, and operate with surgical precision. It is time to upgrade your tech stack, orchestrate your own AI workforce, and reclaim your margins. Ready to build the future of automated acquisition? <a href="#checkout" className="text-purple-400 hover:text-purple-300 underline underline-offset-4 decoration-purple-500/50 transition-colors">Get instant access to the blueprint and start scaling today.</a>
+        </p>
+      </article>
+    </section>
+  );
+};
+
 const Footer = () => (
   <footer className="w-full border-t border-white/10 bg-[#050505] pt-24 pb-12 relative z-10">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -297,7 +393,7 @@ export default function LandingPage() {
       <main className="relative z-10 flex flex-col items-center px-4 sm:px-6 lg:px-8">
         
         {/* HERO SECTION */}
-        <section className="w-full max-w-7xl mx-auto pt-20 pb-16 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-[85vh]">
+        <section id="checkout" className="w-full max-w-7xl mx-auto pt-20 pb-16 grid lg:grid-cols-2 gap-16 lg:gap-24 items-center min-h-[85vh]">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -549,7 +645,11 @@ export default function LandingPage() {
           </div>
         </section>
 
+        <CurriculumSection />
+
         <FAQSection />
+
+        <SEOArticleSection />
 
       </main>
 
