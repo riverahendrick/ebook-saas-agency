@@ -1,134 +1,248 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, Zap, ArrowRight, BookOpen, Shield, TrendingUp } from "lucide-react";
+import { CheckCircle2, Star, Terminal, Bot, CreditCard, ChevronRight, Zap, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
-  const handleCheckout = async () => {
-    try {
-      const response = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Checkout error:", error);
-    }
+  const handleCheckout = () => {
+    window.location.href = "/api/checkout";
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-indigo-500/30 font-sans">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pb-32">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold text-indigo-400 ring-1 ring-inset ring-indigo-500/20 mb-8">
-              <Zap className="w-4 h-4 mr-2" /> Outsmart Your Competition
-            </span>
-            <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-tight text-slate-50 sm:text-7xl">
-              The Zero-Cost Agency:
-              <span className="block text-indigo-400 mt-2">Automating B2B Lead Gen with AI</span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl tracking-tight text-slate-300">
-              Stop paying thousands for unreliable leads. Learn the exact, step-by-step AI automation systems to build an unstoppable B2B lead generation machine—all on autopilot.
-            </p>
-            <div className="mt-10 flex justify-center gap-x-6">
-              <motion.button
-                onClick={handleCheckout}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative inline-flex items-center justify-center rounded-full bg-indigo-600 px-8 py-4 text-lg font-bold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-slate-950 transition-all shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_0_60px_-15px_rgba(79,70,229,0.7)]"
-              >
-                Buy Now - $9
-                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-            </div>
-            <p className="mt-4 text-sm text-slate-400 font-medium">Secure checkout via Stripe • Instant lifetime access</p>
-          </motion.div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-[#0a0a0c] text-neutral-200 font-sans selection:bg-purple-500/30">
+      {/* Background Effects */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-900/20 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-900/20 blur-[120px] rounded-full" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 mix-blend-overlay"></div>
+      </div>
 
-      {/* What's Inside Section */}
-      <section className="py-16 sm:py-24 bg-slate-900/50 relative border-y border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
-          <div className="mx-auto max-w-2xl text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-50 sm:text-4xl">What's Inside The Blueprint</h2>
-            <p className="mt-4 text-lg text-slate-400">Everything you need to set up your automated agency from scratch.</p>
-          </div>
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "AI Outreach Scripts",
-                description: "Copy-paste prompts to generate hyper-personalized emails that actually get replies.",
-                icon: BookOpen,
-              },
-              {
-                title: "Scraping Secrets",
-                description: "Find thousands of verified decision-maker emails without paying for expensive SaaS tools.",
-                icon: Shield,
-              },
-              {
-                title: "Automated Workflows",
-                description: "Connect Zapier, Make, and OpenAI to run your entire lead gen system while you sleep.",
-                icon: Zap,
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="relative flex flex-col gap-6 rounded-3xl bg-slate-900 p-8 ring-1 ring-white/10 shadow-xl hover:ring-indigo-500/30 transition-all hover:-translate-y-1"
+      {/* Navigation */}
+      <nav className="relative z-10 flex items-center justify-between px-6 py-6 max-w-7xl mx-auto">
+        <div className="flex items-center gap-2">
+          <Zap className="w-6 h-6 text-purple-500" />
+          <span className="text-xl font-bold tracking-tighter text-white">ZeroCost<span className="text-purple-500">.</span></span>
+        </div>
+        <button 
+          onClick={handleCheckout}
+          className="px-5 py-2.5 text-sm font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all duration-300 backdrop-blur-md"
+        >
+          Get Instant Access
+        </button>
+      </nav>
+
+      <main className="relative z-10 flex flex-col items-center px-4 sm:px-6 lg:px-8">
+        
+        {/* HERO SECTION */}
+        <section className="w-full max-w-7xl mx-auto pt-20 pb-32 grid lg:grid-cols-2 gap-16 items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col gap-8"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 w-fit">
+              <span className="flex h-2 w-2 rounded-full bg-purple-500 animate-pulse"></span>
+              <span className="text-xs font-medium text-purple-300 uppercase tracking-wider">V2.0 Fully Updated for 2026</span>
+            </div>
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+              Build a 6-Figure Agency <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
+                With Zero Overhead.
+              </span>
+            </h1>
+            
+            <p className="text-lg sm:text-xl text-neutral-400 leading-relaxed max-w-xl">
+              Stop paying for expensive SaaS tools. Learn how to deploy AI agents, automate client acquisition with Playwright, and collect payments via Stripe—all using open-source and free-tier infrastructure.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button 
+                onClick={handleCheckout}
+                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-white text-black font-bold text-lg rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 ring-1 ring-white/10">
-                  <feature.icon className="h-6 w-6 text-indigo-400" />
+                <span className="relative z-10">Buy the eBook - $49</span>
+                <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-gray-200 to-gray-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </button>
+              <div className="flex items-center gap-4 px-4">
+                <div className="flex -space-x-3">
+                  {[1, 2, 3, 4].map((i) => (
+                    <div key={i} className={`w-10 h-10 rounded-full border-2 border-[#0a0a0c] bg-neutral-800 flex items-center justify-center overflow-hidden`}>
+                      <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((i) => <Star key={i} className="w-4 h-4 fill-yellow-500 text-yellow-500" />)}
+                  </div>
+                  <span className="text-sm text-neutral-400 font-medium">Join 2,400+ founders</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 3D Glowing eBook Representation */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            transition={{ duration: 1, delay: 0.2, type: "spring" }}
+            className="relative perspective-1000 mx-auto w-full max-w-[400px]"
+          >
+            <div className="relative w-full aspect-[3/4] rounded-2xl bg-gradient-to-br from-neutral-800 to-black border border-white/10 shadow-[0_0_80px_rgba(168,85,247,0.15)] overflow-hidden group transform-gpu transition-all duration-700 hover:rotate-y-[-10deg] hover:rotate-x-[5deg]">
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/20 via-transparent to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              
+              {/* Cover Design */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
+                <div className="flex justify-between items-start">
+                  <Zap className="w-8 h-8 text-purple-400" />
+                  <span className="text-xs font-mono text-neutral-500">O'REILLY STYLE</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-slate-50">{feature.title}</h3>
-                  <p className="mt-3 text-slate-400 leading-relaxed">{feature.description}</p>
+                  <h2 className="text-4xl font-black text-white leading-none tracking-tighter mb-4">
+                    The Zero-Cost<br/>Agency
+                  </h2>
+                  <p className="text-sm font-mono text-purple-300">AUTOMATE EVERYTHING. PAY NOTHING.</p>
                 </div>
-              </motion.div>
+                <div className="pt-8 border-t border-white/10 flex justify-between items-end">
+                  <span className="font-mono text-xs text-neutral-400">AUTHOR: H. RIVERA</span>
+                  <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <Terminal className="w-5 h-5 text-white" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Binding edge */}
+              <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-black/60 to-transparent z-20"></div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* WHAT YOU WILL LEARN */}
+        <section className="w-full max-w-7xl mx-auto py-24 border-t border-white/5">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Master the Stack of the Future</h2>
+            <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+              This isn't theory. It's a technical blueprint for building a cash-flowing machine using pure code and AI.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Card 1 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.04] transition-colors"
+            >
+              <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 border border-blue-500/20">
+                <Terminal className="w-6 h-6 text-blue-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Playwright Scraping</h3>
+              <p className="text-neutral-400 leading-relaxed mb-6">
+                Build headless crawlers to extract B2B leads from LinkedIn, Google Maps, and directories. Bypass rate limits and automate initial outreach at zero cost.
+              </p>
+              <ul className="space-y-2">
+                {['Headless architecture', 'Proxy rotation strategies', 'DOM parsing techniques'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-blue-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.04] transition-colors relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-[50px]"></div>
+              <div className="w-12 h-12 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 border border-purple-500/20">
+                <Bot className="w-6 h-6 text-purple-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Autonomous AI Agents</h3>
+              <p className="text-neutral-400 leading-relaxed mb-6">
+                Deploy local and cloud LLMs to process leads, generate personalized cold emails, and handle customer support logic entirely on autopilot.
+              </p>
+              <ul className="space-y-2">
+                {['OpenClaw / MCP Integration', 'RAG for client data', 'Self-healing prompts'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-purple-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div 
+              whileHover={{ y: -5 }}
+              className="bg-white/[0.02] border border-white/10 rounded-3xl p-8 hover:bg-white/[0.04] transition-colors"
+            >
+              <div className="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center mb-6 border border-green-500/20">
+                <CreditCard className="w-6 h-6 text-green-400" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Stripe Integration</h3>
+              <p className="text-neutral-400 leading-relaxed mb-6">
+                Set up frictionless checkout flows, handle webhooks, and manage subscriptions seamlessly without needing heavy backend frameworks.
+              </p>
+              <ul className="space-y-2">
+                {['Checkout Sessions API', 'Webhook security', 'Automated fulfillment'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-neutral-300">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="w-full max-w-7xl mx-auto py-24 border-t border-white/5">
+          <h2 className="text-3xl font-bold text-center text-white mb-16">What early readers are saying</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { name: "Alex K.", role: "Solo Founder", text: "I fired my $2k/mo lead gen agency after reading chapter 3. The Playwright scripts alone are worth $500." },
+              { name: "Sarah J.", role: "SaaS Dev", text: "Finally, a guide that doesn't just say 'use AI' but actually shows the raw code to wire up agents to Stripe webhooks." },
+              { name: "Marcus T.", role: "Agency Owner", text: "We rebuilt our entire backend operations using the open-source stack recommended here. Margins went from 40% to 92%." }
+            ].map((t, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white/[0.01] border border-white/5 flex flex-col justify-between">
+                <p className="text-neutral-300 mb-6 font-medium">"{t.text}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-sm font-bold text-white">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <h4 className="text-white text-sm font-bold">{t.name}</h4>
+                    <span className="text-neutral-500 text-xs">{t.role}</span>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Bottom CTA */}
-      <section className="relative py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
-        <div className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Ready to scale your agency?
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
-            Join hundreds of founders who have completely automated their client acquisition. Price increases soon.
-          </p>
-          <div className="mt-10 flex flex-col items-center gap-6">
-            <motion.button
-              onClick={handleCheckout}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group flex items-center justify-center rounded-full bg-white px-10 py-5 text-xl font-bold text-slate-950 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
-            >
-              Get Instant Access - $9
-              <TrendingUp className="ml-3 h-6 w-6 text-indigo-600 group-hover:scale-110 transition-transform" />
-            </motion.button>
-            <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
-              <CheckCircle className="h-5 w-5 text-emerald-400" />
-              <span>30-Day Money-Back Guarantee</span>
-            </div>
+      </main>
+
+      {/* STICKY BOTTOM BAR */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-[#0a0a0c]/80 backdrop-blur-xl border-t border-white/10 transform translate-y-0 transition-transform">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="hidden sm:block">
+            <h3 className="text-white font-bold">The Zero-Cost Agency</h3>
+            <p className="text-sm text-neutral-400">Instant PDF Access + Code Templates</p>
           </div>
+          <button 
+            onClick={handleCheckout}
+            className="w-full sm:w-auto px-8 py-3.5 bg-white text-black font-bold rounded-xl hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+          >
+            Buy Now for $49
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
-      </section>
+      </div>
+      
+      {/* Spacer for sticky footer */}
+      <div className="h-24"></div>
     </div>
   );
 }
