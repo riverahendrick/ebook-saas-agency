@@ -417,18 +417,21 @@ export default function LandingPage() {
             </h2>
 
             <div className="flex flex-col sm:flex-row gap-6 pt-6 items-start sm:items-center">
-              <button 
-                onClick={handleCheckout}
-                disabled={isCheckoutLoading}
-                className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black text-lg rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] disabled:opacity-70 disabled:hover:scale-100 w-full sm:w-auto"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  {isCheckoutLoading && <span className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin"></span>}
-                  Download eBook - $49
-                </span>
-                <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-300 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </button>
+              <div className="relative w-full sm:w-auto">
+                <div className="absolute -top-3 -right-2 bg-red-500 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-lg border border-red-400 rotate-12 z-20 whitespace-nowrap">Limited Time Offer</div>
+                <button 
+                  onClick={handleCheckout}
+                  disabled={isCheckoutLoading}
+                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black text-lg rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] disabled:opacity-70 disabled:hover:scale-100 w-full sm:w-auto"
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    {isCheckoutLoading && <span className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin"></span>}
+                    Download eBook - <span className="line-through text-neutral-500 mr-1">$99</span>$49
+                  </span>
+                  <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-300 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </button>
+              </div>
               
               {/* Trust Signal */}
               <div className="flex items-center gap-4 px-2">
@@ -512,7 +515,7 @@ export default function LandingPage() {
           >
             <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">Master the Open-Source Tech Stack</h2>
             <p className="text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
-              This isn't theory. It's a technical blueprint for building a cash-flowing machine using pure code, AI agents, and free-tier scaling.
+              This isn&apos;t theory. It&apos;s a technical blueprint for building a cash-flowing machine using pure code, AI agents, and free-tier scaling.
             </p>
           </motion.div>
 
@@ -668,17 +671,20 @@ export default function LandingPage() {
               <p className="text-sm text-emerald-400 font-medium tracking-wide">Instant PDF Access + Pro Code Templates</p>
             </div>
           </div>
-          <button 
-            onClick={handleCheckout}
-            disabled={isCheckoutLoading}
-            className="w-full sm:w-auto px-10 py-4 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.2)] disabled:opacity-50 hover:shadow-[0_0_50px_rgba(255,255,255,0.4)]"
-          >
-            {isCheckoutLoading ? (
-              <span className="w-6 h-6 border-4 border-black/20 border-t-black rounded-full animate-spin"></span>
-            ) : null}
-            Buy Now for $49
-            <ChevronRight className="w-6 h-6" />
-          </button>
+          <div className="relative w-full sm:w-auto">
+            <div className="absolute -top-3 -right-2 bg-red-500 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-lg border border-red-400 rotate-12 z-20 whitespace-nowrap">Limited Time Offer</div>
+            <button 
+              onClick={handleCheckout}
+              disabled={isCheckoutLoading}
+              className="w-full sm:w-auto px-10 py-4 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.2)] disabled:opacity-50 hover:shadow-[0_0_50px_rgba(255,255,255,0.4)]"
+            >
+              {isCheckoutLoading ? (
+                <span className="w-6 h-6 border-4 border-black/20 border-t-black rounded-full animate-spin"></span>
+              ) : null}
+              Buy Now for <span className="line-through text-neutral-500 mr-1">$99</span>$49
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
       
