@@ -7,17 +7,36 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 
-const Marquee = () => (
-  <div className="w-full overflow-hidden bg-white/[0.02] border-y border-white/5 py-10 mt-20 mb-16 relative">
-    <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0a0a0c] to-transparent z-10 pointer-events-none"></div>
-    <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0a0a0c] to-transparent z-10 pointer-events-none"></div>
-    <div className="flex gap-20 whitespace-nowrap animate-marquee items-center opacity-40">
-      {['Stripe', 'Next.js', 'Playwright', 'Vercel', 'OpenAI', 'Framer Motion', 'Tailwind', 'PostgreSQL', 'Supabase', 'Resend', 'Stripe', 'Next.js', 'Playwright', 'Vercel', 'OpenAI', 'Framer Motion', 'Tailwind', 'PostgreSQL', 'Supabase', 'Resend'].map((logo, i) => (
-        <span key={i} className="text-2xl font-bold font-mono tracking-widest text-neutral-400 mix-blend-screen">{logo}</span>
-      ))}
+const Marquee = () => {
+  const logos = [
+    { name: 'Stripe', url: 'https://cdn.simpleicons.org/stripe/white' },
+    { name: 'Next.js', url: 'https://cdn.simpleicons.org/nextdotjs/white' },
+    { name: 'Playwright', url: 'https://cdn.simpleicons.org/playwright/white' },
+    { name: 'Vercel', url: 'https://cdn.simpleicons.org/vercel/white' },
+    { name: 'OpenAI', url: 'https://cdn.simpleicons.org/openai/white' },
+    { name: 'Framer', url: 'https://cdn.simpleicons.org/framer/white' },
+    { name: 'Tailwind', url: 'https://cdn.simpleicons.org/tailwindcss/white' },
+    { name: 'PostgreSQL', url: 'https://cdn.simpleicons.org/postgresql/white' },
+    { name: 'Supabase', url: 'https://cdn.simpleicons.org/supabase/white' },
+    { name: 'Resend', url: 'https://cdn.simpleicons.org/resend/white' }
+  ];
+  const duplicatedLogos = [...logos, ...logos];
+
+  return (
+    <div className="w-full overflow-hidden bg-white/[0.02] border-y border-white/5 py-10 mt-20 mb-16 relative">
+      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0a0a0c] to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0a0a0c] to-transparent z-10 pointer-events-none"></div>
+      <div className="flex gap-20 whitespace-nowrap animate-marquee items-center opacity-50">
+        {duplicatedLogos.map((logo, i) => (
+          <div key={i} className="flex items-center gap-3 mix-blend-screen opacity-70 hover:opacity-100 transition-opacity">
+            <img src={logo.url} alt={logo.name} className="h-8 w-8 object-contain" />
+            <span className="text-xl font-bold font-mono tracking-widest text-neutral-400">{logo.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const TerminalTyping = () => {
   const [text, setText] = useState('');
@@ -422,7 +441,7 @@ export default function LandingPage() {
                 <button 
                   onClick={handleCheckout}
                   disabled={isCheckoutLoading}
-                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-white text-black font-black text-lg rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(255,255,255,0.4)] disabled:opacity-70 disabled:hover:scale-100 w-full sm:w-auto"
+                  className="group relative inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-amber-400 to-yellow-600 text-black font-black text-lg rounded-full overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(251,191,36,0.3)] hover:shadow-[0_0_60px_rgba(251,191,36,0.5)] disabled:opacity-70 disabled:hover:scale-100 w-full sm:w-auto"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     {isCheckoutLoading && <span className="w-5 h-5 border-2 border-black/20 border-t-black rounded-full animate-spin"></span>}
@@ -460,8 +479,8 @@ export default function LandingPage() {
             className="relative perspective-1000 mx-auto w-full max-w-[450px] mt-12 lg:mt-0"
           >
             <motion.div 
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ y: [0, -20, 0], rotateY: [0, 5, -5, 0], rotateX: [0, 2, -2, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
               className="relative w-full aspect-[3/4] rounded-2xl bg-[#030303] border border-white/20 shadow-[0_0_100px_rgba(168,85,247,0.3)] overflow-hidden group transform-gpu transition-all duration-700 hover:rotate-y-[-15deg] hover:rotate-x-[10deg] cursor-pointer"
             >
               
@@ -676,7 +695,7 @@ export default function LandingPage() {
             <button 
               onClick={handleCheckout}
               disabled={isCheckoutLoading}
-              className="w-full sm:w-auto px-10 py-4 bg-white text-black font-black text-lg rounded-xl hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.2)] disabled:opacity-50 hover:shadow-[0_0_50px_rgba(255,255,255,0.4)]"
+              className="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-amber-400 to-yellow-600 text-black font-black text-lg rounded-xl hover:brightness-110 transition-all active:scale-95 flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(251,191,36,0.3)] disabled:opacity-50 hover:shadow-[0_0_50px_rgba(251,191,36,0.5)]"
             >
               {isCheckoutLoading ? (
                 <span className="w-6 h-6 border-4 border-black/20 border-t-black rounded-full animate-spin"></span>
