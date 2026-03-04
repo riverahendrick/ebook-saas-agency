@@ -4,8 +4,18 @@ import { motion } from "framer-motion";
 import { CheckCircle2, Star, Terminal, Bot, CreditCard, ChevronRight, Zap, ArrowRight } from "lucide-react";
 
 export default function LandingPage() {
-  const handleCheckout = () => {
-    window.location.href = "/api/checkout";
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch("/api/checkout", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error("No checkout URL returned", data);
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+    }
   };
 
   return (
