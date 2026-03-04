@@ -1,265 +1,134 @@
 "use client";
 
-import { motion, useScroll, useTransform, Variants } from "framer-motion";
-import { BookOpen, CheckCircle, Star, Zap, TrendingUp, Users, ArrowRight, ShieldCheck } from "lucide-react";
-
-// Fade in up animation variant
-const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+import { motion } from "framer-motion";
+import { CheckCircle, Zap, ArrowRight, BookOpen, Shield, TrendingUp } from "lucide-react";
 
 export default function LandingPage() {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-50 selection:bg-indigo-500/30 font-sans overflow-x-hidden">
-      
-      {/* Background Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600/20 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-600/20 blur-[120px]" />
-        <div className="absolute top-[40%] left-[50%] translate-x-[-50%] w-[60%] h-[40%] rounded-full bg-blue-600/10 blur-[150px]" />
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light"></div>
-      </div>
-
-      {/* Sticky Buy Button */}
-      <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50">
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="group relative flex items-center justify-center gap-2 rounded-full bg-indigo-500 px-6 py-4 font-bold text-white shadow-[0_0_40px_-10px_rgba(99,102,241,0.8)] transition-all hover:bg-indigo-400 hover:shadow-[0_0_60px_-15px_rgba(99,102,241,1)]"
-          onClick={() => alert("Redirecting to Stripe...")}
-        >
-          <span>Buy Now for $9</span>
-          <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-        </motion.button>
-      </div>
-
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-24 sm:pt-40 sm:pb-32 lg:px-8">
-        
-        {/* Hero Section */}
-        <motion.section 
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="text-center"
-        >
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-indigo-300 mb-8 backdrop-blur-md">
-            <Zap className="h-4 w-4" />
-            <span>The ultimate playbook for scaling</span>
-          </motion.div>
-          
-          <motion.h1 variants={fadeInUp} className="text-5xl sm:text-7xl font-extrabold tracking-tight mb-8">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-br from-white to-neutral-400">
-              The Zero-Cost Agency
+    <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-indigo-500/30 font-sans">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-24 lg:pb-32">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold text-indigo-400 ring-1 ring-inset ring-indigo-500/20 mb-8">
+              <Zap className="w-4 h-4 mr-2" /> Outsmart Your Competition
             </span>
-            <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-blue-400 pb-2">
-              Automating B2B Lead Gen with AI
-            </span>
-          </motion.h1>
-
-          <motion.p variants={fadeInUp} className="max-w-2xl mx-auto text-lg sm:text-xl text-neutral-400 mb-12 leading-relaxed">
-            Stop paying for expensive ads and agencies. Learn the exact AI-driven systems to generate qualified B2B leads on autopilot without spending a dime on acquisition.
-          </motion.p>
-
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button 
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white text-neutral-950 font-bold text-lg hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2"
-              onClick={() => {
-                document.getElementById('buy-section')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Get Instant Access
-              <BookOpen className="h-5 w-5" />
-            </button>
-            <p className="text-sm text-neutral-500 flex items-center gap-1">
-              <ShieldCheck className="h-4 w-4" /> Secure checkout via Stripe
+            <h1 className="mx-auto max-w-4xl font-display text-5xl font-bold tracking-tight text-slate-50 sm:text-7xl">
+              The Zero-Cost Agency:
+              <span className="block text-indigo-400 mt-2">Automating B2B Lead Gen with AI</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl tracking-tight text-slate-300">
+              Stop paying thousands for unreliable leads. Learn the exact, step-by-step AI automation systems to build an unstoppable B2B lead generation machine—all on autopilot.
             </p>
-          </motion.div>
-        </motion.section>
-
-        {/* Social Proof */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="mt-32 pt-16 border-t border-white/10 text-center"
-        >
-          <motion.p variants={fadeInUp} className="text-sm font-semibold tracking-wider text-neutral-500 uppercase mb-8">
-            Trusted by 2,000+ Founders & Agencies
-          </motion.p>
-          <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-8 opacity-60 grayscale">
-            <div className="text-xl font-bold flex items-center gap-2"><TrendingUp/> ACME Corp</div>
-            <div className="text-xl font-bold flex items-center gap-2"><Users/> TechFlow</div>
-            <div className="text-xl font-bold flex items-center gap-2"><Zap/> BoltScale</div>
-            <div className="text-xl font-bold flex items-center gap-2"><Star/> NovaLead</div>
-          </motion.div>
-        </motion.section>
-
-        {/* What You Will Learn */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="mt-40"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-6">What's Inside The Playbook?</h2>
-            <p className="text-neutral-400 text-lg max-w-2xl mx-auto">A step-by-step breakdown of the exact frameworks used to book 50+ qualified meetings per month using free AI tools.</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              {
-                title: "AI-Powered Scraping",
-                description: "Extract highly-targeted leads from LinkedIn and Google Maps using open-source tools.",
-                icon: <Zap className="h-6 w-6 text-indigo-400" />
-              },
-              {
-                title: "Hyper-Personalization at Scale",
-                description: "Use LLMs to craft unique cold emails that actually get replies, automated via n8n/Make.",
-                icon: <BookOpen className="h-6 w-6 text-purple-400" />
-              },
-              {
-                title: "Infrastructure Setup",
-                description: "Configure domains, DNS records (SPF, DKIM, DMARC), and warm-up systems to guarantee 99% deliverability.",
-                icon: <CheckCircle className="h-6 w-6 text-blue-400" />
-              },
-              {
-                title: "The Multi-Channel Sequence",
-                description: "Omnichannel strategies combining email, LinkedIn, and Twitter to stay top-of-mind.",
-                icon: <TrendingUp className="h-6 w-6 text-indigo-400" />
-              },
-              {
-                title: "Automated Follow-ups",
-                description: "Set up triggers to automatically follow up with prospects who clicked but didn't book.",
-                icon: <Users className="h-6 w-6 text-purple-400" />
-              },
-              {
-                title: "Objection Handling Prompts",
-                description: "Copy-paste ChatGPT prompts to instantly draft responses to common sales objections.",
-                icon: <ShieldCheck className="h-6 w-6 text-blue-400" />
-              }
-            ].map((item, i) => (
-              <motion.div 
-                key={i}
-                variants={fadeInUp}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors backdrop-blur-sm group"
+            <div className="mt-10 flex justify-center gap-x-6">
+              <motion.button
+                onClick={handleCheckout}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative inline-flex items-center justify-center rounded-full bg-indigo-600 px-8 py-4 text-lg font-bold text-white hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 focus:ring-offset-slate-950 transition-all shadow-[0_0_40px_-10px_rgba(79,70,229,0.5)] hover:shadow-[0_0_60px_-15px_rgba(79,70,229,0.7)]"
               >
-                <div className="h-12 w-12 rounded-lg bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  {item.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
-                <p className="text-neutral-400 leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Testimonials */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="mt-40"
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-5xl font-bold mb-6">Real Results</h2>
-            <p className="text-neutral-400 text-lg max-w-2xl mx-auto">Don't just take our word for it.</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                name: "Sarah Jenkins",
-                role: "Founder, GrowthLabs",
-                content: "I implemented chapter 3 over the weekend. By Tuesday, I had 4 qualified meetings booked with zero ad spend. The AI personalization frameworks are insane.",
-              },
-              {
-                name: "David Chen",
-                role: "B2B Consultant",
-                content: "Best $9 I've ever spent. The cold email infrastructure guide alone saved me hours of headaches and prevented my domains from getting burned.",
-              }
-            ].map((testimonial, i) => (
-              <motion.div 
-                key={i}
-                variants={fadeInUp}
-                className="p-8 rounded-3xl bg-gradient-to-br from-white/5 to-transparent border border-white/10 relative"
-              >
-                <div className="flex gap-1 mb-6 text-indigo-400">
-                  <Star className="h-5 w-5 fill-current" />
-                  <Star className="h-5 w-5 fill-current" />
-                  <Star className="h-5 w-5 fill-current" />
-                  <Star className="h-5 w-5 fill-current" />
-                  <Star className="h-5 w-5 fill-current" />
-                </div>
-                <p className="text-lg text-neutral-300 mb-8 italic">"{testimonial.content}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 rounded-full bg-indigo-500/20 flex items-center justify-center font-bold text-indigo-300 border border-indigo-500/30">
-                    {testimonial.name[0]}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">{testimonial.name}</h4>
-                    <p className="text-sm text-neutral-500">{testimonial.role}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Final CTA */}
-        <motion.section 
-          id="buy-section"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={staggerContainer}
-          className="mt-40 text-center relative"
-        >
-          <div className="absolute inset-0 bg-indigo-500/10 blur-[100px] rounded-full z-0" />
-          <motion.div variants={fadeInUp} className="relative z-10 p-12 sm:p-20 rounded-3xl border border-indigo-500/20 bg-neutral-900/50 backdrop-blur-xl">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6">Ready to scale your agency?</h2>
-            <p className="text-xl text-neutral-400 mb-10 max-w-xl mx-auto">Get immediate access to the 100+ page playbook, templates, and automation workflows.</p>
-            <div className="flex flex-col items-center gap-4">
-              <button 
-                className="px-10 py-5 rounded-full bg-white text-neutral-950 font-extrabold text-xl hover:bg-neutral-200 transition-all shadow-[0_0_40px_-10px_rgba(255,255,255,0.5)] hover:scale-105 active:scale-95"
-                onClick={() => alert("Redirecting to Stripe...")}
-              >
-                Get The eBook for $9
-              </button>
-              <p className="text-neutral-500 flex items-center gap-2 mt-4">
-                <CheckCircle className="h-5 w-5 text-green-500" />
-                Instant PDF & Notion Template Access
-              </p>
+                Buy Now - $9
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
             </div>
+            <p className="mt-4 text-sm text-slate-400 font-medium">Secure checkout via Stripe • Instant lifetime access</p>
           </motion.div>
-        </motion.section>
-        
-        {/* Footer */}
-        <footer className="mt-40 border-t border-white/10 pt-8 pb-12 flex flex-col md:flex-row items-center justify-between text-neutral-500 text-sm">
-          <p>© {new Date().getFullYear()} The Zero-Cost Agency. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Contact</a>
-          </div>
-        </footer>
+        </div>
+      </section>
 
-      </div>
+      {/* What's Inside Section */}
+      <section className="py-16 sm:py-24 bg-slate-900/50 relative border-y border-white/5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+          <div className="mx-auto max-w-2xl text-center mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-50 sm:text-4xl">What's Inside The Blueprint</h2>
+            <p className="mt-4 text-lg text-slate-400">Everything you need to set up your automated agency from scratch.</p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "AI Outreach Scripts",
+                description: "Copy-paste prompts to generate hyper-personalized emails that actually get replies.",
+                icon: BookOpen,
+              },
+              {
+                title: "Scraping Secrets",
+                description: "Find thousands of verified decision-maker emails without paying for expensive SaaS tools.",
+                icon: Shield,
+              },
+              {
+                title: "Automated Workflows",
+                description: "Connect Zapier, Make, and OpenAI to run your entire lead gen system while you sleep.",
+                icon: Zap,
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="relative flex flex-col gap-6 rounded-3xl bg-slate-900 p-8 ring-1 ring-white/10 shadow-xl hover:ring-indigo-500/30 transition-all hover:-translate-y-1"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-500/10 ring-1 ring-white/10">
+                  <feature.icon className="h-6 w-6 text-indigo-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-50">{feature.title}</h3>
+                  <p className="mt-3 text-slate-400 leading-relaxed">{feature.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="relative py-24 sm:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-950 to-slate-950"></div>
+        <div className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-5xl">
+            Ready to scale your agency?
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg text-slate-300">
+            Join hundreds of founders who have completely automated their client acquisition. Price increases soon.
+          </p>
+          <div className="mt-10 flex flex-col items-center gap-6">
+            <motion.button
+              onClick={handleCheckout}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center justify-center rounded-full bg-white px-10 py-5 text-xl font-bold text-slate-950 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-slate-950 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+            >
+              Get Instant Access - $9
+              <TrendingUp className="ml-3 h-6 w-6 text-indigo-600 group-hover:scale-110 transition-transform" />
+            </motion.button>
+            <div className="flex items-center gap-2 text-sm font-medium text-slate-400">
+              <CheckCircle className="h-5 w-5 text-emerald-400" />
+              <span>30-Day Money-Back Guarantee</span>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
