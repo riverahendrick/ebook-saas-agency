@@ -29,8 +29,8 @@ export async function POST(req: Request) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-agency.vercel.app'}/success`,
-      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-agency.vercel.app'}`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-sandy.vercel.app'}/success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-sandy.vercel.app'}`,
     });
 
     return NextResponse.json({ url: session.url });

@@ -11,9 +11,9 @@ const Marquee = () => {
   const logos = [
     { name: 'Stripe', url: 'https://cdn.simpleicons.org/stripe/white' },
     { name: 'Next.js', url: 'https://cdn.simpleicons.org/nextdotjs/white' },
-    { name: 'Playwright', url: 'https://cdn.simpleicons.org/playwright/white' },
+    { name: 'Playwright', url: '' },
     { name: 'Vercel', url: 'https://cdn.simpleicons.org/vercel/white' },
-    { name: 'OpenAI', url: 'https://cdn.simpleicons.org/openai/white' },
+    { name: 'OpenAI', url: '' },
     { name: 'Framer', url: 'https://cdn.simpleicons.org/framer/white' },
     { name: 'Tailwind', url: 'https://cdn.simpleicons.org/tailwindcss/white' },
     { name: 'PostgreSQL', url: 'https://cdn.simpleicons.org/postgresql/white' },
