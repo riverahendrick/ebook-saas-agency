@@ -42,3 +42,5 @@ next-env.d.ts
 openclaw.json
 config_backup/openclaw.json
 config_backup/.env
+
+/src/generated/prisma

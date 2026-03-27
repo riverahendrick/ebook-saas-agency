@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String     @id @default(cuid())
+  email     String     @unique
+  name      String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  purchases Purchase[]
+}
+
+model Product {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  price       Int        // Price in cents
+  stripeId    String?    @unique // Stripe Product ID
+  filePath    String     // Path to the downloadable ebook
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  purchases   Purchase[]
+}
+
+model Purchase {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id])
+  productId       String
+  product         Product  @relation(fields: [productId], references: [id])
+  stripeSessionId String   @unique
+  amount          Int
+  createdAt       DateTime @default(now())
+}

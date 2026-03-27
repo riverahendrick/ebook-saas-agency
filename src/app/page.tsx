@@ -238,7 +238,23 @@ export default function Home() {
                           </li>
                       </ul>
 
-                      <button className="w-full bg-brand text-black py-5 rounded-full font-black text-xl glow-btn transition-all">
+                      <button 
+                          onClick={async (e) => {
+                              const btn = e.currentTarget;
+                              const originalText = btn.innerHTML;
+                              btn.innerHTML = 'Processing...';
+                              btn.disabled = true;
+                              try {
+                                  const res = await fetch('/api/checkout', { method: 'POST' });
+                                  const { url } = await res.json();
+                                  if (url) window.location.href = url;
+                              } catch (err) {
+                                  console.error(err);
+                                  btn.innerHTML = 'Error. Try Again.';
+                                  setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 3000);
+                              }
+                          }}
+                          className="w-full bg-brand text-black py-5 rounded-full font-black text-xl glow-btn transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                           Secure Your Spot
                       </button>
                       <p className="text-center text-xs text-gray-500 mt-4 font-medium">Delivered in 72 hours. 100% Satisfaction Guarantee.</p>
