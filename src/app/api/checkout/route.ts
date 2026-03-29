@@ -7,7 +7,7 @@ const secretKey = isLive
   : process.env.STRIPE_TEST_SECRET_KEY;
 
 const stripe = new Stripe(secretKey || 'sk_test_dummy', {
-  apiVersion: '2026-02-25.clover',
+  apiVersion: '2026-02-25.clover' as any,
 });
 
 export async function POST(req: Request) {
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
         },
       ],
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-sandy.vercel.app'}/success`,
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-sandy.vercel.app'}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://ebook-saas-sandy.vercel.app'}`,
     });
 
